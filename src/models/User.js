@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true
   }
+  ,
+  isEmailed: {
+    type: Boolean,
+    required: true,
+    default: false
+  }
 }, {
   timestamps: true
 });

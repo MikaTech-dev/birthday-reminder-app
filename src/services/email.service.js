@@ -21,7 +21,7 @@ class EmailService {
     const mailOptions = {
       from: emailConfig.auth.user,
       to: user.email,
-      subject: `🎉 Happy Birthday, ${user.username}!`,
+      subject: `SMTP 🎉 Happy Birthday, ${user.username}!`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="text-align: center; background: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%); padding: 30px; border-radius: 10px; color: white;">

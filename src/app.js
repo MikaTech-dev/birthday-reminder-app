@@ -39,6 +39,7 @@ const sendBirthdayEmails = async () => {
 
     // Find users whose birthday is today (compare month and day)
     const birthdayUsers = await User.find({
+      isEmailed: false,
       $expr: {
         $and: [
           { $eq: [{ $month: '$dateOfBirth' }, month] },
@@ -59,9 +60,20 @@ const sendBirthdayEmails = async () => {
     
     // Send email to each birthday user using the email service
     const results = await Promise.all(
-      birthdayUsers.map(user => emailService.sendBirthdayEmail(user))
+      birthdayUsers.map(async (user) => {
+        const sent = await emailService.sendBirthdayEmail(user);
+        if (sent) {
+          // mark user as emailed
+          try {
+            await User.updateOne({ _id: user._id }, { $set: { isEmailed: true } });
+          } catch (e) {
+            console.error(`Failed to update isEmailed for ${user.email}:`, e);
+          }
+        }
+        return sent;
+      })
     );
-    
+
     const successfulSends = results.filter(result => result).length;
     console.log(`Successfully sent ${successfulSends} out of ${birthdayUsers.length} birthday emails`);
     
@@ -87,3 +99,6 @@ app.listen(PORT, ()=> {
     }
     return logProgress()
 })
+
+// Export the function for quick testing (do not change server behavior)
+module.exports = { sendBirthdayEmails };

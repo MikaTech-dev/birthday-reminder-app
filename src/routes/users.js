@@ -5,10 +5,11 @@ const User = require('../models/User');
 // GET home page
 router.get('/', async (req, res) => {
   try {
-    const users = await User.find().sort({ createdAt: -1 });
+    const users = await User.find({isEmailed: false}).sort({ createdAt: -1, });
     res.render('index', { users, error: null, success: null });
   } catch (error) {
     res.render('index', { users: [], error: 'Error loading users', success: null });
+    console.log(error)
   }
 });
 
