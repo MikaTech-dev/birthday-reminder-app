@@ -30,13 +30,19 @@ const sendBirthdayEmails = async () => {
   try {
     // Get today's date (month and day only)
     const today = moment().format('MM-DD');
-    
-    // Find users whose birthday is today
+    const [monthStr, dayStr] = today.split('-');
+    const month = parseInt(monthStr, 10); // moment gives 01-12 (no +1 needed)
+    const day = parseInt(dayStr, 10);
+
+    // Debug log to help troubleshooting with troubleshooting
+    console.log(`Birthday job running for month=${month}, day=${day}`);
+
+    // Find users whose birthday is today (compare month and day)
     const birthdayUsers = await User.find({
       $expr: {
         $and: [
-          { $eq: [{ $month: '$dateOfBirth' }, parseInt(today.split('-')[0]) + 1] },
-          { $eq: [{ $dayOfMonth: '$dateOfBirth' }, parseInt(today.split('-')[1])] }
+          { $eq: [{ $month: '$dateOfBirth' }, month] },
+          { $eq: [{ $dayOfMonth: '$dateOfBirth' }, day] }
         ]
       }
     });
@@ -47,8 +53,9 @@ const sendBirthdayEmails = async () => {
     }
     if (birthdayUsers.length === 1) {
         console.log (`Found ${birthdayUsers.length} birthday today`)
+    } else if (birthdayUsers.length > 1){
+        console.log(`Found ${birthdayUsers.length} birthday(s) today`);
     }
-    console.log(`Found ${birthdayUsers.length} birthday(s) today`);
     
     // Send email to each birthday user using the email service
     const results = await Promise.all(
