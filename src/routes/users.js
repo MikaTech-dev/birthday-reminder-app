@@ -22,6 +22,7 @@ router.post('/', async (req, res) => {
     const { error } = User.validate({ username, email, dateOfBirth });
     if (error) {
       const users = await User.find().sort({ createdAt: -1 });
+      console.log(error);
       return res.render('index', { 
         users, 
         error: error.details[0].message, 
