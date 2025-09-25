@@ -1,25 +1,28 @@
 const express = require ("express")
 const { config } = require("dotenv")
 const morgan = require("morgan")
-const nodemailer = require ("nodemailer")
 const cron = require ("node-cron")
 const moment = require ("moment")
 const connect_DB = require("./src/configs/db")
-const path = require('path')                      // { changed code }
-const User = require('./src/models/User')             // { changed code }
-const emailService = require('./src/services/email.service') // { changed code }
+const path = require('path')
+const User = require('./src/models/User')
+const emailService = require('./src/services/email.service')
 
 config()
 const app = express()
 
 
 PORT = process.env.PORT || 3000
+// Get user ip
+morgan.token('remote-addr', function (req, res) {
+  return req.ip;
+});
 
-app.use (morgan("tiny"))
+app.use (morgan(":remote-addr - :method :url :response-time ms"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("public"))
 app.set("view engine", "ejs")
-app.set('views', path.join(__dirname, 'views'))   // { changed code }
+app.set('views', path.join(__dirname, 'views'))
 
 
 // Routes
@@ -35,7 +38,13 @@ const sendBirthdayEmails = async () => {
     const day = parseInt(dayStr, 10);
 
     // Debug log to help troubleshooting with troubleshooting
-    console.log(`Birthday job running for month=${month}, day=${day}`);
+    // Create and log new date to help with debugging/troubleshooting
+    const now = new Date()
+    const hours = now.getHours()
+    const minutes = now.getMinutes();
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const currentTime = `${hours}:${formattedMinutes}`;
+    console.log(`${currentTime} Birthday job running for month=${month}, day=${day}`);
 
     // Find users whose birthday is today (compare month and day)
     const birthdayUsers = await User.find({
@@ -49,13 +58,13 @@ const sendBirthdayEmails = async () => {
     });
     
     if (birthdayUsers.length === 0) {
-      console.log('No birthdays today');
+      console.log(`${currentTime} No birthdays today`);
       return;
     }
     if (birthdayUsers.length === 1) {
-        console.log (`Found ${birthdayUsers.length} birthday today`)
+        console.log (`${currentTime} Found ${birthdayUsers.length} birthday today`)
     } else if (birthdayUsers.length > 1){
-        console.log(`Found ${birthdayUsers.length} birthday(s) today`);
+        console.log(`${currentTime} Found ${birthdayUsers.length} birthday(s) today`);
     }
     
     // Send email to each birthday user using the email service
@@ -83,7 +92,7 @@ const sendBirthdayEmails = async () => {
 };
 
 // Schedule to send birthday email
-cron.schedule("* * * * *", sendBirthdayEmails, {
+cron.schedule("0 7 * * *", sendBirthdayEmails, {
     scheduled: true,
     timezone: "Africa/Lagos"
 })
@@ -91,11 +100,12 @@ cron.schedule("* * * * *", sendBirthdayEmails, {
 // Uncomment to send email immediately (Only used during testing)
 // sendBirthdayEmails()
 
-// Start server and connect db
+// Connect db, log server startup
 app.listen(PORT, ()=> {
     const logProgress = async () => {
         await connect_DB()  // connect db first before logging server running
         console.log(`Server running on http://localhost:${PORT}`)
+        sendBirthdayEmails()  //check on server startup
     }
     return logProgress()
 })
