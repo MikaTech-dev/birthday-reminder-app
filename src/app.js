@@ -4,10 +4,10 @@ const morgan = require("morgan")
 const nodemailer = require ("nodemailer")
 const cron = require ("node-cron")
 const moment = require ("moment")
-const connect_DB = require("./src/configs/db")
+const connect_DB = require("./configs/db")
 const path = require('path')                      // { changed code }
-const User = require('./src/models/User')             // { changed code }
-const emailService = require('./src/services/email.service') // { changed code }
+const User = require('./models/User')             // { changed code }
+const emailService = require('./services/email.service') // { changed code }
 
 config()
 const app = express()
@@ -19,11 +19,12 @@ app.use (morgan("tiny"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("public"))
 app.set("view engine", "ejs")
-app.set('views', path.join(__dirname, 'views'))   // { changed code }
+// Use an absolute path to the views directory so Express can reliably locate templates
+app.set('views', path.join(__dirname, 'views'))
 
 
 // Routes
-app.use('/', require('./src/routes/users'));
+app.use('/', require('./routes/users'));
 
 // Function to send birthday emails
 const sendBirthdayEmails = async () => {
@@ -83,7 +84,7 @@ const sendBirthdayEmails = async () => {
 };
 
 // Schedule to send birthday email
-cron.schedule("* * * * *", sendBirthdayEmails, {
+cron.schedule("* 7 * * *", sendBirthdayEmails, {
     scheduled: true,
     timezone: "Africa/Lagos"
 })
