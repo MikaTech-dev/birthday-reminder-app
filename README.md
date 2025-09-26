@@ -2,12 +2,18 @@
 
 Automated birthday email system that sends wishes to customers at 7 AM daily.
 
+[![License: MIT](https://img.shields.io/github/license/Mikatech-Dev/guessing-game-js?style=for-the-badge&color=white)](https://opensource.org/licenses/MIT)
+![Issues](https://img.shields.io/github/issues/Mikatech-Dev/guessing-game-js?style=for-the-badge&color=purple)
+![Forks](https://img.shields.io/github/forks/MikaTech-dev/number-guessing-game-js?style=for-the-badge&color=purple)
+![Stars](https://img.shields.io/github/stars/Mikatech-Dev/guessing-game-js?style=for-the-badge&color=white)
+
 ## Features
 - Simple UI to add birthday reminders (name, email, date)
 - Daily 7 AM cron job checks for birthdays
 - Sends personalized birthday emails via Gmail (service is specifically set to gmail)
 - Tracks who has been emailed with `isEmailed` flag
 - Only sends to users who haven't received email yet
+- TODO: Use mailtrap instead of gmail
 
 ## Setup
 - First Fork or Clone the repo, then:
@@ -39,4 +45,5 @@ npm start
 4. Only users with `isEmailed=false` receive emails
 
 > Note: Requires Gmail App Password for email sending.  
+
 > Birthday list shows only unemailed users by default.
