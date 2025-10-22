@@ -38,7 +38,7 @@ const sendBirthdayEmails = async () => {
     const day = parseInt(dayStr, 10);
 
     // Debug log to help troubleshooting with troubleshooting
-    // Create and log new date to help with debugging/troubleshooting
+    // Create and log new date to help with debugging
     const now = new Date()
     const hours = now.getHours()
     const minutes = now.getMinutes();

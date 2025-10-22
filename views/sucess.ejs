@@ -1,91 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Success - Birthday Reminder</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    
-    .container {
-      background-color: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Success - Birthday Reminder</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #6b11cb33 0%, #3b25fc 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+        color: #11998e;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 28px;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #03bd4a;
+        color: white;
+        text-decoration: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: transform 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      max-width: 500px;
       text-align: center;
-      padding: 40px;
-    }
-    
-    .icon {
-      font-size: 60px;
-      margin-bottom: 20px;
-      color: #11998e;
-    }
-    
-    h1 {
-      color: #333;
-      margin-bottom: 15px;
-      font-size: 28px;
-    }
-    
-    p {
-      color: #666;
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
-    
-    .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-      color: white;
-      text-decoration: none;
-      padding: 12px 30px;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: transform 0.2s;
-    }
-    
-    .btn:hover {
-      transform: translateY(-2px);
+      padding: 10px 0;
+      background: rgba(47, 0, 255, 0.1);
+      color: #ffffff;
+      font-size: 14px;
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.2);
     }
 
-    .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            background-color: #f7f7f7;
-            color: #45a049;
-            font-size: 14px;
+      /* Sucess animation codepen.io/kuvinod5/pen/WNvzazr */
+      .success-animation {
+        margin: 0 0 20px auto;
+      }
+
+      .checkmark {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: #4bb71b;
+        stroke-miterlimit: 10;
+        box-shadow: inset 0px 0px 0px #4bb71b;
+        animation: fill 0.4s ease-in-out 0.4s forwards,
+          scale 0.3s ease-in-out 0.9s both;
+        position: relative;
+        top: 5px;
+        right: 5px;
+        margin: 0 auto;
+      }
+      .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #4bb71b;
+        fill: #fff;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      }
+
+      .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      }
+
+      @keyframes stroke {
+        100% {
+          stroke-dashoffset: 0;
         }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="icon">✅</div>
-    <h1>Success!</h1>
-    <p><%= message %></p>
-    <a href="/" class="btn">Add Another Birthday</a>
-  </div>
-    <div class="footer">
-       <strong>Made with ⚡ by Mikatech/Crescentech</strong>
+      }
+
+      @keyframes scale {
+        0%,
+        100% {
+          transform: none;
+        }
+
+        50% {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+      }
+
+      @keyframes fill {
+        100% {
+          box-shadow: inset 0px 0px 0px 30px #4bb71b;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="success-animation">
+        <svg
+          class="checkmark"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 52 52"
+        >
+          <circle
+            class="checkmark__circle"
+            cx="26"
+            cy="26"
+            r="25"
+            fill="none"
+          />
+          <path
+            class="checkmark__check"
+            fill="none"
+            d="M14.1 27.2l7.1 7.2 16.7-16.8"
+          />
+        </svg>
+      </div>
+      <h1>Success!</h1>
+      <p><%= message %></p>
+      <a href="/" class="btn">Add Another Birthday</a>
     </div>
-</body>
+    <div class="footer">
+      <strong>Made with ⚡ by Mikatech/Crescentech</strong>
+    </div>
+  </body>
 </html>
