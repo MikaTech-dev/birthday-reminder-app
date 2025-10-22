@@ -22,10 +22,13 @@
       }
 
       .container {
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.15);;
+        backdrop-filter: blur(12px);
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        overflow: hidden;
         max-width: 500px;
         text-align: center;
         padding: 40px;
@@ -51,7 +54,7 @@
 
       .btn {
         display: inline-block;
-        background-color: #03bd4a;
+        background-color: #4bb71b;
         color: white;
         text-decoration: none;
         padding: 12px 30px;
@@ -105,7 +108,7 @@
         stroke-width: 2;
         stroke-miterlimit: 10;
         stroke: #4bb71b;
-        fill: #fff;
+        fill: #ffffff8c;
         animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
       }
 
@@ -135,7 +138,7 @@
 
       @keyframes fill {
         100% {
-          box-shadow: inset 0px 0px 0px 30px #4bb71b;
+          box-shadow: inset 0px 0px 0px 30px #4ab71b00;
         }
       }
     </style>
