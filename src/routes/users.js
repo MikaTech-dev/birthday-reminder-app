@@ -42,7 +42,6 @@ router.post('/', async (req, res) => {
       // Duplicate email error
       const users = await User.find().sort({ createdAt: -1 });
       return res.render('index', { 
-        users, 
         error: 'Email already exists!', 
         success: null 
       });
