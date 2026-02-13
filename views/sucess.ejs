@@ -1,176 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Success - Birthday Reminder</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Success - Birthday Reminder</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              black: '#09090b',
+              surface: '#18181b',
+              border: '#27272a',
+              purple: '#7c3aed',
+              purpleHover: '#6d28d9'
+            }
+          }
+        }
       }
-
-      body {
-        background: linear-gradient(135deg, #6b11cb33 0%, #3b25fc 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
-
-      .container {
-        background-color: rgba(255, 255, 255, 0.15);;
-        backdrop-filter: blur(12px);
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        overflow: hidden;
-        max-width: 500px;
-        text-align: center;
-        padding: 40px;
-      }
-
-      .icon {
-        font-size: 60px;
-        margin-bottom: 20px;
-        color: #11998e;
-      }
-
-      h1 {
-        color: #333;
-        margin-bottom: 15px;
-        font-size: 28px;
-      }
-
-      p {
-        color: #666;
-        margin-bottom: 30px;
-        line-height: 1.6;
-      }
-
-      .btn {
-        display: inline-block;
-        background-color: #4bb71b;
-        color: white;
-        text-decoration: none;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: transform 0.2s;
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      background: rgba(47, 0, 255, 0.1);
-      color: #ffffff;
-      font-size: 14px;
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.2);
     }
+  </script>
 
-      /* Sucess animation codepen.io/kuvinod5/pen/WNvzazr */
-      .success-animation {
-        margin: 0 0 20px auto;
-      }
+  <style>
+    @keyframes scaleOnce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+    .scale-once { animation: scaleOnce 0.6s ease-in-out; }
+  </style>
+</head>
+<body class="min-h-screen bg-brand-black text-zinc-300 flex flex-col items-center justify-center p-4">
 
-      .checkmark {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        display: block;
-        stroke-width: 2;
-        stroke: #4bb71b;
-        stroke-miterlimit: 10;
-        box-shadow: inset 0px 0px 0px #4bb71b;
-        animation: fill 0.4s ease-in-out 0.4s forwards,
-          scale 0.3s ease-in-out 0.9s both;
-        position: relative;
-        top: 5px;
-        right: 5px;
-        margin: 0 auto;
-      }
-      .checkmark__circle {
-        stroke-dasharray: 166;
-        stroke-dashoffset: 166;
-        stroke-width: 2;
-        stroke-miterlimit: 10;
-        stroke: #4bb71b;
-        fill: #ffffff8c;
-        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-      }
-
-      .checkmark__check {
-        transform-origin: 50% 50%;
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-      }
-
-      @keyframes stroke {
-        100% {
-          stroke-dashoffset: 0;
-        }
-      }
-
-      @keyframes scale {
-        0%,
-        100% {
-          transform: none;
-        }
-
-        50% {
-          transform: scale3d(1.1, 1.1, 1);
-        }
-      }
-
-      @keyframes fill {
-        100% {
-          box-shadow: inset 0px 0px 0px 30px #4ab71b00;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="success-animation">
-        <svg
-          class="checkmark"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 52 52"
-        >
-          <circle
-            class="checkmark__circle"
-            cx="26"
-            cy="26"
-            r="25"
-            fill="none"
-          />
-          <path
-            class="checkmark__check"
-            fill="none"
-            d="M14.1 27.2l7.1 7.2 16.7-16.8"
-          />
+  <main class="w-full max-w-md bg-brand-surface border border-brand-border rounded-xl shadow-[0_0_50px_-12px_rgba(124,58,237,0.1)] p-10 text-center relative overflow-hidden">
+    
+    <div class="mx-auto mb-6 w-[80px] h-[80px] rounded-full block relative">
+      <div class="w-full h-full rounded-full shadow-[inset_0px_0px_0px_#7c3aed] scale-once">
+        <svg class="block origin-center w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="stroke-2 stroke-brand-purple fill-none" cx="26" cy="26" r="25" />
+          <path class="stroke-2 stroke-brand-purple fill-none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
         </svg>
       </div>
-      <h1>Success!</h1>
-      <p><%= message %></p>
-      <a href="/" class="btn">Add Another Birthday</a>
     </div>
-    <div class="footer">
-      <strong>Made with ⚡ by Mikatech/Crescentech</strong>
-    </div>
-  </body>
+
+    <h1 class="text-2xl font-semibold text-white mb-2 tracking-tight">Success</h1>
+    <p class="text-zinc-500 mb-8 text-sm leading-relaxed border-b border-brand-border pb-6">
+      <%= message || 'The birthday reminder has been successfully added to the registry.' %>
+    </p>
+    
+    <a href="/" class="group inline-flex items-center justify-center gap-2 w-full bg-brand-black border border-brand-border text-zinc-300 hover:text-white hover:border-brand-purple/50 px-6 py-3 rounded-lg font-medium transition-all duration-200">
+      <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+      Add Another Birthday
+    </a>
+
+  </main>
+<footer class="fixed bottom-0 left-0 right-0 p-3 border-t border-brand-border bg-brand-black/50 text-center">
+    <p class="text-[14px] text-zinc-300 font-bold">Made with ⚡ by Mikatech/Crescentech</p>
+  </footer>
+
+</body>
 </html>
