@@ -20,7 +20,7 @@
     "dev": "nodemon app.js"
   },
   "dependencies": {
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.3.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "joi": "^18.0.1",
